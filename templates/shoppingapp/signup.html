@@ -1,0 +1,45 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+    <style>
+        input {
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            text-align: center;
+
+        }
+    </style>
+
+
+    {% for message in messages %}
+    <div class="alert alert-secondary">
+        <p style="text-align: center;">{{message}}</p>
+    </div>
+    
+    {% endfor %}
+    <div class="d-flex justify-content-center align-items-center"
+     style="height:100vh;width: 100vw;">
+
+        <div class="d-flex justify-content-center align-items-center bg-primary" style="padding: 4vw;">
+            <div>
+                <h1 style="text-align: center;color:white">Register Here</h1>
+                <form method="post" action="{% url "registeruser" %}">
+                    {% csrf_token %}
+                    <input placeholder="username" class="form-control" type="text" name="username" id="" required>
+                    <input placeholder="password" class="form-control" type="password" name="password" id="" required>
+                    <input placeholder="re-enter password" class="form-control" type="password" name="repassword" id="" required>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" value="sign up" class="btn btn-light"></input>
+                        
+                       
+                    </div>
+                    <p style="color: white;">already have an account ?  <span><a style="color: white;" href="{% url "loginpage" %}">login</a></span> here</p>
+                    
+                
+                
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a href="{% url 'homepage' %}" class="navbar-brand">Pharmacy</a>
+        <h5 class="ml-auto text-light">hi {{user.username}}</h5>
+
+        <div class="ml-auto">
+            <a href="{% url 'cartpage' %}" style="margin-left: 10px;" class="btn btn-success">cart</a>
+            <a href="{% url 'orders' %}" style="margin-left: 2px;" class="btn btn-warning">orders</a>
+            <a href="{% url 'logoutuser' %}" style="margin-left: 10px;" class="btn btn-danger">logout</a>
+            
+        </div>
+            
+           
+
+    </div>
+</nav>
+<br>
+
+<br>
+
+
+
+
+
+        <div class="container">
+            <div class="row">
+                {% for cart in cartitems %}
+                 <div class="text-center col-lg-4 d-flex text-dark justify-content-center">
+                     <div class="card bg-light mb-3" style="min-width: 20rem;">
+                         
+                         <div class="card-body">
+                           
+
+                             <img src="{{cart.item.cover.url}}" style="width: 20vw;height: 20vh;" alt="">
+                         </div>
+                         <h3 class="card-header">{{cart.item.name}}</h3>
+                         <div class="card-title">price : {{cart.item.price}}</div>
+                         <div class="container">
+                             <a href="/cart/delete/{{cart.id}}/" class="btn btn-danger">delete</a>
+                         </div>
+                       </div>
+                 </div>
+                 {% endfor %}
+        </div>
+    </div>
+ 
+  
+</div>
+
+<form class="d-flex container" style="width: fit-content;" action="{% url 'placeorder' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="promo" placeholder="promo" class="form-control-sm text-center">
+    <input type="submit" value="place order" class="btn btn-success">
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    input {
+        margin-top: 1vh;
+    }
+</style>
+{% for message in messages %}
+    <div class="alert alert-secondary">
+        <p style="text-align: center;">{{message}}</p>
+    </div>
+    
+{% endfor %}
+<div class="container d-flex align-items-center" style="height: 100vh;width: fit-content;">
+    <form class="bg-primary" style="padding: 2vh 2vw;" action="/login/validate/" method="post">
+        {% csrf_token %}
+        <h3 class="text-center">Login</h3>
+            <input placeholder="username" class="form-control text-center" type="text" name="username" id="" required>
+            <input placeholder="password" class="form-control text-center" type="password" name="password" id="" required>
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="login" class="btn btn-light"></input>
+
+                
+            </div>
+            <p style="color: white;">dont have an account ? <span><a style="color: white;" href="{% url "signuppage" %}">sign up</a></span> here</p>
+            
+
+
+
+    </form>
+</div>
+{% endblock %}

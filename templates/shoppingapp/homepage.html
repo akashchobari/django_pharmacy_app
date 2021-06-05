@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a href="{% url 'homepage' %}" class="navbar-brand">Pharmacy</a>
+        <h5 class="ml-auto text-light">hi {{user.username}}</h5>
+        <form method="post" class="nav-item d-flex ml-auto align-items-center" style="width: 40vw;" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input type="text" name="search" placeholder="search here" class="form-control">
+            <input type="submit" value="search" class="btn btn-primary">
+            
+            <a href="{% url 'cartpage' %}" style="margin-left: 10px;" class="btn btn-success">cart</a>
+            <a href="{% url 'orders' %}" style="margin-left: 2px;" class="btn btn-warning">orders</a>
+            <a href="{% url 'logoutuser' %}" style="margin-left: 10px;" class="btn btn-danger">logout</a>
+            
+        </form>
+    </div>
+</nav>
+{% for message in messages %}
+<div class="text-center alert alert-dismissible alert-success">
+    
+    <p style="margin: 0px;">{{message}}</p>
+    
+</div>
+{% endfor %}
+<br>
+
+<br>
+
+
+    <div class="d-flex">
+
+        <div>
+
+
+                
+                <div class="list-group">
+                    <a  class="list-group-item list-group-item-action active">Shop By Category</a>
+                    <a href="/" class="list-group-item list-group-item-action">all</a>
+                    {% for category in categories %}
+                    <a href="/category/{{category.id}}/" class="list-group-item list-group-item-action">{{category.name}}</a>
+                    {% endfor %}
+                  </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                {% for item in items %}
+                 <div class="text-center col-lg-4 d-flex text-dark justify-content-center">
+                     <div class="card bg-light mb-3" style="min-width: 20rem;">
+                         
+                         <div class="card-body">
+                           
+
+                             <img src="{{item.cover.url}}" style="width: 20vw;height: 20vh;" alt="">
+                         </div>
+                         <h3 class="card-header">{{item.name}}</h3>
+                         <div class="card-title">price : {{item.price}}</div>
+                         <div class="container">
+                             <a href="/cart/add/{{item.id}}/" class="btn btn-success">add to cart</a>
+                         </div>
+                       </div>
+                 </div>
+                 {% endfor %}
+        </div>
+    </div>
+     
+</div>
+
+   
+    
+    
+  
+</div>
+
+
+{% endblock %}
